@@ -1,0 +1,32 @@
+.main {
+    width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.main > h1 {
+    font-size: 3em;
+}
+
+li {
+    list-style: none;
+    font-size: 20px;
+    margin: 25px 5px;
+    display: flex;
+    flex-direction: row;
+}
+#form {
+    position: absolute;
+    bottom: 0;
+}
+p {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+span {
+    
+    align-self: center;
+    margin-left: 100px;
+}
