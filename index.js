@@ -34,7 +34,7 @@ app.post('/api', (req, res) => {
    
     let id = req.body.id;
     let message = req.body.message
-    console.log('request made!!  ', id)
+    console.log('request made!!  ', id, message)
     Model
     .save(id, message)
     .then(data => {res.json(data)})
