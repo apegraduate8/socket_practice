@@ -2,19 +2,19 @@ const socket = io();
 let user;
 
 jQuery(document).ready(function($) {
-    
-   
+
+
     let $userForm = $('.container > form')
-    
+
      $userForm.on("submit", function(e){
         e.preventDefault()
         console.log("yoyo   ", $('#user').val())
         user = $('#user').val();
          $('#user').val(" ");
-         
+
     })
-    
-    
+
+
       $("#form").submit(function(e){
                     e.preventDefault()
                     socket.emit("chatMessage", $('#m').val())
@@ -31,9 +31,9 @@ jQuery(document).ready(function($) {
                     console.log(yo)
                     $('.messages').append(l.append(sp));
                 })
-    
-    
-    
+
+
+
     let grab = (id) => {
              axios.get('/api'+id)
         .then(data => {
@@ -43,7 +43,7 @@ jQuery(document).ready(function($) {
             console.log(err)
         })
     };
-    
+
     let save = (userID, message) => {
                  axios.post('/api', {id: userID, message: message})
             .then(data => {
@@ -53,14 +53,14 @@ jQuery(document).ready(function($) {
                 console.log(err)
             })
     };
-   
-   
-    
-    
-    
-    
 
-    
+
+
+
+
+
+
+
     console.log($userForm)
-    
+
 });

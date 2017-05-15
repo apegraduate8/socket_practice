@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const ejs = require('ejs')
 const bodyParser = require('body-parser')
 const  http = require('http').Server(app);
 const io = require('socket.io')(http);
@@ -7,8 +8,10 @@ const Model = require('./model.js');
 
 
 
-
-
+// app.engine('html', "ejs");
+app.set('view engine', 'ejs');
+// app.set('view engine', 'pug');  ///// http://expressjs.com/en/guide/using-template-engines.html
+app.set('views', __dirname + '/views');
 app.use(express.static(__dirname +'/public'));
 
 //app.use(cookiePars());
@@ -18,11 +21,12 @@ app.use(bodyParser.json());
 
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html')
+    Model.getAll(req, res)
+
 });
 
 app.get('/api/:id', (req, res) => {
-   
+
     let id = req.params
     console.log('request made!!  ', id)
     Model
@@ -31,18 +35,18 @@ app.get('/api/:id', (req, res) => {
 });
 
 app.post('/api', (req, res) => {
-   
-    let id = req.body.id;
+
+    let name = req.body.id;
     let message = req.body.message
-    console.log('request made!!  ', id, message)
+    console.log('request made!!  ', name, message)
     Model
-    .save(id, message)
-    .then(data => {res.json(data)})
+    .save(name, message)
+
 });
 
 io.on('connection', function(socket){
     console.log("user connected")
-    
+
     socket.on('chatMessage', function(msg){
         console.log("user says  ", msg)
         io.emit('chatMessage', msg)
@@ -52,5 +56,10 @@ io.on('connection', function(socket){
 
 http.listen(3000, () => {
     console.log("listening on port 3000 anthony")
+    // Model.setup(data => {
+    //     if(data){
+    //         console.log(data)
+    //     }
+    // })
 });
-      
+
